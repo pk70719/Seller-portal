@@ -1,4 +1,4 @@
-const BASE_URL = "https://suriyawan-saffari-backend.onrender.com/api/seller";
+const BASE_URL = "https://suriyawan-backend-68z3.onrender.com/api/seller";
 
 // 🔐 Login
 function login() {
