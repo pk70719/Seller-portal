@@ -117,7 +117,7 @@
       const list = document.getElementById("product-list");
       list.textContent = "Loading products...";
       try {
-        const res = await fetch("https://suriyawan-backend-18.onrender.com/api/seller/dashboard", { headers });
+        const res = await fetch("https://suriyawan-backend-68z3.onrender.com/api/seller/dashboard", { headers });
         const data = await res.json();
         if (!data.success) return list.textContent = "❌ Failed to load products.";
         list.innerHTML = `<p><strong>Total Products:</strong> ${data.totalProducts}</p>
