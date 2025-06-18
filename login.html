@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 Seller Login</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f1f1f1;
+    }
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #login-msg {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔐 Seller Login</h2>
+  <form id="login-form" autocomplete="off">
+    <input type="text" id="username" placeholder="Enter your username (e.g., sellerS1 to sellerS25)" required autocomplete="off" />
+    <input type="password" id="password" placeholder="Enter your password" required autocomplete="off" />
+    <button type="submit">Login</button>
+  </form>
+  <p id="login-msg"></p>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!username || !password) {
+        document.getElementById("login-msg").textContent = "⚠️ Both fields are required.";
+        return;
+      }
+
+      try {
+        const res = await fetch("https://suriyawan-backend-18.onrender.com/api/seller/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          localStorage.setItem("seller_token", data.token);
+          window.location.href = "seller-dashboard.html";
+        } else {
+          document.getElementById("login-msg").textContent = data.message || "❌ Login failed!";
+        }
+      } catch {
+        document.getElementById("login-msg").textContent = "⚠️ Network error.";
+      }
+    });
+  </script>
+</body>
+</html>
