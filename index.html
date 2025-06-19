@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -42,103 +41,91 @@
     }
   </style>
 </head>
-<body>
-
-  <!-- 🔝 Navbar -->
-  <header>
+<body>  <!-- 🔝 Navbar -->  <header>
     <div style="display:flex; align-items:center;">
       <img src="https://i.imgur.com/HEZC2xL.png" alt="Suriyawan Saffari Logo" title="Suriyawan Saffari">
       <h1>Seller Portal</h1>
     </div>
     <span>🛍️ Suriyawan Saffari</span>
-  </header>
+  </header>  <div class="container"><!-- 🔐 Login Section -->
+<div class="section" id="loginSection">
+  <h2>Seller Login</h2>
+  <input type="text" id="username" placeholder="Username" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="login()">🔐 Login</button>
+</div>
 
-  <div class="container">
+<!-- 📦 Dashboard -->
+<div class="section hidden" id="dashboardSection">
 
-    <!-- 🔐 Login Section -->
-    <div class="section" id="loginSection">
-      <h2>Seller Login</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="login()">🔐 Login</button>
-    </div>
-
-    <!-- 📦 Dashboard -->
-    <div class="section hidden" id="dashboardSection">
-
-      <!-- 🧑‍💼 Seller Profile Info -->
-      <div class="profile-box" id="sellerProfileBox">
-        <h3>🧑 Seller Profile</h3>
-        <p><strong>Username:</strong> <span id="profileUsername">--</span></p>
-        <p><strong>Category:</strong> <span id="profileCategory">--</span></p>
-        <p><strong>Pincode:</strong> <span id="profilePincode">--</span></p>
-        <p><strong>Phase:</strong> <span id="profilePhase">--</span></p>
-      </div>
-
-      <!-- 🔄 Update Profile -->
-      <div class="section">
-        <h3>🔧 Update Profile</h3>
-        <input type="text" id="updateCategory" placeholder="New Category (optional)" />
-        <input type="text" id="updatePincode" placeholder="New Pincode (optional)" />
-        <input type="password" id="updatePassword" placeholder="New Password (optional)" />
-        <button onclick="updateProfile()">💾 Update Profile</button>
-      </div>
-
-      <!-- ➕ Add Product -->
-      <div class="section">
-        <h3>➕ Add New Product</h3>
-        <input type="text" id="productName" placeholder="Product Name" />
-        <input type="number" id="productPrice" placeholder="Price" />
-        <textarea id="productDesc" placeholder="Description"></textarea>
-        <input type="file" id="productImage" accept="image/*" />
-        <button onclick="addProduct()">📷 Add Product</button>
-      </div>
-
-      <!-- 📋 Product List -->
-      <div class="section">
-        <h3>📋 Your Products</h3>
-        <p><strong>Total Products:</strong> <span id="productCount">0</span></p>
-        <ul id="productList">Loading...</ul>
-      </div>
-
-      <!-- ⭐ Reviews -->
-      <div class="section">
-        <h3>⭐ Product Reviews</h3>
-        <ul id="reviewList">
-          <li>No reviews available.</li>
-        </ul>
-      </div>
-
-      <!-- 📈 Sales Analytics -->
-      <div class="section">
-        <h3>📈 Sales Analytics</h3>
-        <canvas id="salesChart" width="400" height="200"></canvas>
-      </div>
-
-      <!-- 🔔 Notifications -->
-      <div class="section">
-        <h3>🔔 Notifications</h3>
-        <ul id="notificationList">
-          <li>Welcome to your dashboard!</li>
-        </ul>
-      </div>
-
-      <!-- 🤖 Ask Suriyawan Saffari (AI Assistant) -->
-      <div class="section">
-        <h3>🤖 Ask Suriyawan Saffari (AI Assistant)</h3>
-        <input type="text" id="bencoInput" placeholder="Ask something..." />
-        <button onclick="askBenco()">💬 Ask</button>
-        <div id="bencoResponse">AI will respond here...</div>
-      </div>
-
-      <!-- 🔓 Logout -->
-      <button onclick="logout()">🔓 Logout</button>
-    </div>
-
+  <!-- 🧑‍💼 Seller Profile Info -->
+  <div class="profile-box" id="sellerProfileBox">
+    <h3>🧑 Seller Profile</h3>
+    <p><strong>Username:</strong> <span id="profileUsername">--</span></p>
+    <p><strong>Category:</strong> <span id="profileCategory">--</span></p>
+    <p><strong>Pincode:</strong> <span id="profilePincode">--</span></p>
+    <p><strong>Phase:</strong> <span id="profilePhase">--</span></p>
   </div>
 
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
-</body>
+  <!-- 🔄 Update Profile -->
+  <div class="section">
+    <h3>🔧 Update Profile</h3>
+    <input type="text" id="updateCategory" placeholder="New Category (optional)" />
+    <input type="text" id="updatePincode" placeholder="New Pincode (optional)" />
+    <input type="password" id="updatePassword" placeholder="New Password (optional)" />
+    <button onclick="updateProfile()">📂 Update Profile</button>
+  </div>
+
+  <!-- ➕ Add Product -->
+  <div class="section">
+    <h3>➕ Add New Product</h3>
+    <input type="text" id="productName" placeholder="Product Name" />
+    <input type="number" id="productPrice" placeholder="Price" />
+    <textarea id="productDesc" placeholder="Description"></textarea>
+    <input type="file" id="productImage" accept="image/*" />
+    <button onclick="addProduct()">📷 Add Product</button>
+  </div>
+
+  <!-- 📋 Product List -->
+  <div class="section">
+    <h3>📋 Your Products</h3>
+    <p><strong>Total Products:</strong> <span id="productCount">0</span></p>
+    <ul id="productList">Loading...</ul>
+  </div>
+
+  <!-- ⭐ Reviews -->
+  <div class="section">
+    <h3>⭐ Product Reviews</h3>
+    <ul id="reviewList">
+      <li>No reviews available.</li>
+    </ul>
+  </div>
+
+  <!-- 📈 Sales Analytics -->
+  <div class="section">
+    <h3>📈 Sales Analytics</h3>
+    <canvas id="salesChart" width="400" height="200"></canvas>
+  </div>
+
+  <!-- 🔔 Notifications -->
+  <div class="section">
+    <h3>🔔 Notifications</h3>
+    <ul id="notificationList">
+      <li>Welcome to your dashboard!</li>
+    </ul>
+  </div>
+
+  <!-- 🧐 Ask Suriyawan Saffari (AI Assistant) -->
+  <div class="section">
+    <h3>🧐 Ask Suriyawan Saffari (AI Assistant)</h3>
+    <input type="text" id="bencoInput" placeholder="Ask something..." />
+    <button onclick="askBenco()">💬 Ask</button>
+    <div id="bencoResponse">AI will respond here...</div>
+  </div>
+
+  <!-- 🔓 Logout -->
+  <button onclick="logout()">🔓 Logout</button>
+</div>
+
+  </div>  <!-- Chart.js CDN -->  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  <script src="script.js"></script></body>
 </html>
