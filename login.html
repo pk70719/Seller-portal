@@ -51,13 +51,15 @@
 <body>
   <h2>🔐 Seller Login</h2>
   <form id="login-form" autocomplete="off">
-    <input type="text" id="username" placeholder="Enter your username (e.g., sellerS1 to sellerS25)" required autocomplete="off" />
-    <input type="password" id="password" placeholder="Enter your password" required autocomplete="off" />
+    <input type="text" id="username" placeholder="Enter your username" required />
+    <input type="password" id="password" placeholder="Enter your password" required />
     <button type="submit">Login</button>
   </form>
   <p id="login-msg"></p>
 
   <script>
+    const BASE_URL = "https://suriyawan-backend-68z3.onrender.com";
+
     document.getElementById("login-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const username = document.getElementById("username").value.trim();
@@ -69,7 +71,7 @@
       }
 
       try {
-        const res = await fetch("https://suriyawan-backend-68z3.onrender.com/api/seller/login", {
+        const res = await fetch(`${BASE_URL}/api/seller/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password })
@@ -78,12 +80,12 @@
         const data = await res.json();
         if (data.success) {
           localStorage.setItem("seller_token", data.token);
-          window.location.href = "seller-dashboard.html";
+          window.location.href = "seller-dashboard.html"; // ✅ redirect after login
         } else {
           document.getElementById("login-msg").textContent = data.message || "❌ Login failed!";
         }
       } catch {
-        document.getElementById("login-msg").textContent = "⚠️ Network error.";
+        document.getElementById("login-msg").textContent = "⚠️ Network error. Please try again.";
       }
     });
   </script>
