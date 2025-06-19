@@ -8,12 +8,12 @@ function login() {
   fetch(`${BASE_URL}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ username, password }),
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success) {
-        localStorage.setItem("seller_token", data.token); // 🟢 Updated to consistent token name
+        localStorage.setItem("seller_token", data.token);
         document.getElementById("loginSection").classList.add("hidden");
         document.getElementById("dashboardSection").classList.remove("hidden");
         loadSellerProfile();
@@ -55,11 +55,11 @@ function addProduct() {
 
   fetch(`${BASE_URL}/product`, {
     method: "POST",
-    headers: { "Authorization": "Bearer " + token },
-    body: formData
+    headers: { Authorization: "Bearer " + token },
+    body: formData,
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success) {
         alert("✅ Product added!");
         document.getElementById("productName").value = "";
@@ -80,16 +80,16 @@ function loadProducts() {
   if (!token) return;
 
   fetch(`${BASE_URL}/products`, {
-    headers: { "Authorization": "Bearer " + token }
+    headers: { Authorization: "Bearer " + token },
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       const list = document.getElementById("productList");
       list.innerHTML = "";
       let count = 0;
 
       if (data.products?.length) {
-        data.products.forEach(product => {
+        data.products.forEach((product) => {
           count++;
           const li = document.createElement("li");
           li.innerHTML = `
@@ -119,10 +119,10 @@ function loadSellerProfile() {
   if (!token) return;
 
   fetch(`${BASE_URL}/profile`, {
-    headers: { "Authorization": "Bearer " + token }
+    headers: { Authorization: "Bearer " + token },
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success && data.seller) {
         document.getElementById("profileUsername").textContent = data.seller.username;
         document.getElementById("profileCategory").textContent = data.seller.category || "Not Set";
@@ -146,12 +146,12 @@ function editProduct(id, currentName, currentPrice, currentDesc) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      Authorization: "Bearer " + token,
     },
-    body: JSON.stringify({ name, price, description })
+    body: JSON.stringify({ name, price, description }),
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success) {
         alert("✅ Product updated!");
         loadProducts();
@@ -170,10 +170,10 @@ function deleteProduct(id) {
 
   fetch(`${BASE_URL}/product/${id}`, {
     method: "DELETE",
-    headers: { "Authorization": "Bearer " + token }
+    headers: { Authorization: "Bearer " + token },
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success) {
         alert("🗑️ Product deleted");
         loadProducts();
@@ -196,12 +196,12 @@ function updateProfile() {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      Authorization: "Bearer " + token,
     },
-    body: JSON.stringify({ category, pincode, password })
+    body: JSON.stringify({ category, pincode, password }),
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success) {
         alert("✅ Profile updated");
         loadSellerProfile();
@@ -214,17 +214,17 @@ function updateProfile() {
     });
 }
 
-// 🚦 Toggle Availability
+// 🚦 Toggle Product Status
 function toggleProduct(id) {
   const token = localStorage.getItem("seller_token");
   if (!token) return;
 
   fetch(`${BASE_URL}/product/${id}/toggle`, {
     method: "PATCH",
-    headers: { "Authorization": "Bearer " + token }
+    headers: { Authorization: "Bearer " + token },
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       alert(data.message || "Toggled");
       loadProducts();
     });
@@ -237,7 +237,7 @@ function copyProductID(id) {
   });
 }
 
-// 🧠 Ask Benco AI (Demo)
+// 🧠 Benco AI Chat (Demo)
 function askBenco() {
   const question = document.getElementById("bencoInput").value.trim();
   const responseBox = document.getElementById("bencoResponse");
@@ -251,39 +251,42 @@ function askBenco() {
   }, 1000);
 }
 
-// 📈 Load Sales Chart (demo)
+// 📈 Sales Chart (Demo)
 function loadSalesChart() {
   const canvas = document.getElementById("salesChart");
   if (!canvas) return;
 
   const ctx = canvas.getContext("2d");
   new Chart(ctx, {
-    type: 'bar',
+    type: "bar",
     data: {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-      datasets: [{
-        label: 'Sales ₹',
-        data: [500, 1200, 750, 900, 1500],
-        backgroundColor: 'rgba(75, 192, 192, 0.6)'
-      }]
-    }
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+      datasets: [
+        {
+          label: "Sales ₹",
+          data: [500, 1200, 750, 900, 1500],
+          backgroundColor: "rgba(75, 192, 192, 0.6)",
+        },
+      ],
+    },
   });
 }
 
 // ⭐ Load Reviews
 function loadReviews() {
   const token = localStorage.getItem("seller_token");
+  if (!token) return;
 
   fetch(`${BASE_URL}/reviews`, {
-    headers: { "Authorization": "Bearer " + token }
+    headers: { Authorization: "Bearer " + token },
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       const list = document.getElementById("reviewList");
       list.innerHTML = "";
 
       if (data.reviews?.length) {
-        data.reviews.forEach(review => {
+        data.reviews.forEach((review) => {
           const li = document.createElement("li");
           li.textContent = `${review.customerName}: ${review.comment}`;
           list.appendChild(li);
@@ -294,7 +297,7 @@ function loadReviews() {
     });
 }
 
-// 🚀 Auto Login on Load
+// 🚀 Auto Load
 window.onload = () => {
   const token = localStorage.getItem("seller_token");
   if (token) {
